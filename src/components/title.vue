@@ -19,7 +19,7 @@
 import { defineComponent, Ref, ref } from 'vue'
 
 export default defineComponent({
-  name: 'layout',
+  name: 'title',
   setup() {
     const num: Ref<number> = ref(1)
     return {

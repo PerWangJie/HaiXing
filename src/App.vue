@@ -26,4 +26,9 @@ html, body {
   color: #2c3e50;
 }
 
+.el-table td > .cell,
+.el-table th > .cell {
+  text-align: center !important;
+}
+
 </style>

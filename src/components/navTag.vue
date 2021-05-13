@@ -2,12 +2,13 @@
 <template>
   <div class="nav">
     <div class="nav-title">
-      <img src="@/assets/title.png" alt="">
+      <img src="@/assets/img/title.png" alt="">
     </div>
     <div class="nav-menu">
       <el-menu
         default-active="1"
         class="nav-menu-content"
+        @select="menuSelect"
       >
         <el-menu-item v-for="(item, index) in navList" :key="index" :index="index + 1">
           <template #title>{{item.label}}</template>
@@ -19,18 +20,29 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref, reactive } from "vue";
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: "nav",
   setup() {
     const navList: Array<any> = reactive([
-      {label: '产品加工'}, {label: 'SOP查看'},
-      {label: '今日任务'}, {label: '产出查询'},
-      {label: '设备相关'}, {label: '呼叫记录'},
-      {label: '操作日志'},
+      {label: '产品加工', path: '/product'}, {label: 'SOP查看', path: 'sopCheck'},
+      {label: '今日任务', path: '/today'}, {label: '产出查询', path: '/yieldSearch' },
+      {label: '设备相关'}, {label: '呼叫记录', path: 'callRecord'},
+      {label: '操作日志'}, {label: '工位登记记录', path: 'stationRecord' }
     ])
+    const router = useRouter()
+    // 切换菜单
+    const menuSelect = (index: number) => {
+      router.push(
+        {
+          path: navList[index - 1].path
+        }
+      )
+    }
     return {
-      navList
+      navList,
+      menuSelect
     }
   },
 })
