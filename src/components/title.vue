@@ -1,17 +1,12 @@
 <template>
   <div class="title">
-    <div class="equipment-information">
-      <p class="equipment-code">
-        设备
-        <span>0101051</span>
-      </p>
-      <p class="machine-unit">五十一加工单元</p>
+    <div class="equipment-line">
+      产线号：{{line}}
     </div>
-    <div class="product-information">
-      <div>MO20200602003</div>
-      <div>RO20 EPB右钳体</div>
-      <div>30*15</div>
+    <div class="equipment-class">
+      {{dayClass}}
     </div>
+    <div class="user">Hi，用户名</div>
   </div>
 </template>
 
@@ -22,8 +17,12 @@ export default defineComponent({
   name: 'title',
   setup() {
     const num: Ref<number> = ref(1)
+    const line: Ref<string> = ref('hsg8976')
+    const dayClass: Ref<string> = ref('白 班：9:00-12:00') 
     return {
-      num
+      num,
+      line,
+      dayClass
     }
   },
 });
@@ -32,42 +31,24 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .title {
-  display: flex;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
   padding: 10px 0;
-  border-bottom: 1px solid #D6D6D6;
   display: flex;
   flex-direction: row;
-  .equipment-information {
-    width: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0 20px;
+  .equipment-line, .equipment-class, .user {
     height: 100%;
-    padding: 15px 20px;
-    border-right: 1px solid #537BFE;
-    color: #333;
-    p.equipment-code {
-      margin: 0;
-      font-size: 17px;
-      text-align: left;
-      span {
-        font-size: 17px;
-        float: right;
-      }
-    }
-    p.machine-unit {
-      font-size: 22px;
-    }
+    color: #fff;
+    font-size: 27px;
+    line-height: 120px;
+    margin-right: 90px;
   }
-  .product-information {
+  .user {
     flex: 1;
-    display: flex;
-    flex-direction: row;
-    div {
-      font-size: 18px;
-      color: #333;
-      margin: 40px 80px 0 20px;
-    }
+    text-align: right;
   }
 }
 

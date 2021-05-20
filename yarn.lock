@@ -3106,11 +3106,6 @@ core-js@^2.6.5:
   resolved "https://registry.npm.taobao.org/core-js/download/core-js-2.6.11.tgz?cache=0&sync_timestamp=1592843203000&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha1-OIMUafmSK97Y7iHJ3EaYXgOZMIw=
 
-core-js@^3.4.3:
-  version "3.12.1"
-  resolved "https://registry.nlark.com/core-js/download/core-js-3.12.1.tgz?cache=0&sync_timestamp=1620507873758&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcore-js%2Fdownload%2Fcore-js-3.12.1.tgz#6b5af4ff55616c08a44d386f1f510917ff204112"
-  integrity sha1-a1r0/1VhbAikTThvH1EJF/8gQRI=
-
 core-js@^3.6.5:
   version "3.6.5"
   resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.6.5.tgz?cache=0&sync_timestamp=1592843203000&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
@@ -3771,6 +3766,14 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.nlark.com/echarts/download/echarts-5.1.1.tgz#b186f162f017c555cfd67b12ede6762bdc3ddfda"
+  integrity sha1-sYbxYvAXxVXP1nsS7eZ2K9w939o=
+  dependencies:
+    tslib "2.0.3"
+    zrender "5.1.0"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -9103,6 +9106,11 @@ thread-loader@^2.1.3:
     loader-utils "^1.1.0"
     neo-async "^2.6.0"
 
+throttle-debounce@^2.0.1:
+  version "2.3.0"
+  resolved "https://registry.npm.taobao.org/throttle-debounce/download/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
+  integrity sha1-/TGGXmZQIHHkEYF+JBRls+nDcuI=
+
 through2@^2.0.0:
   version "2.0.5"
   resolved "https://registry.npm.taobao.org/through2/download/through2-2.0.5.tgz?cache=0&sync_timestamp=1593480386934&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fthrough2%2Fdownload%2Fthrough2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -9253,6 +9261,11 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/ts-pnp/download/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha1-pQCtCEsHmPHDBxrzkeZZEshrypI=
+
+tslib@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.nlark.com/tslib/download/tslib-2.0.3.tgz?cache=0&sync_timestamp=1618847097275&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftslib%2Fdownload%2Ftslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha1-jgdBrEX8DCJuWKF7/D5kubxsphw=
 
 tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
@@ -9556,6 +9569,14 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha1-sj5DWK+oogL+ehAK8fX4g/AgB+4=
 
+v-viewer@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npm.taobao.org/v-viewer/download/v-viewer-1.5.1.tgz#94804d83814cca566e691339fe1e64793486f200"
+  integrity sha1-lIBNg4FMylZuaRM5/h5keTSG8gA=
+  dependencies:
+    throttle-debounce "^2.0.1"
+    viewerjs "^1.5.0"
+
 v8-compile-cache@^2.0.3:
   version "2.2.0"
   resolved "https://registry.npm.taobao.org/v8-compile-cache/download/v8-compile-cache-2.2.0.tgz?cache=0&sync_timestamp=1603909396193&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fv8-compile-cache%2Fdownload%2Fv8-compile-cache-2.2.0.tgz#9471efa3ef9128d2f7c6a7ca39c4dd6b5055b132"
@@ -9587,6 +9608,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+viewerjs@^1.5.0:
+  version "1.9.0"
+  resolved "https://registry.npm.taobao.org/viewerjs/download/viewerjs-1.9.0.tgz#6dfaf54440c3b2f7691b85666ba6d27708ed9592"
+  integrity sha1-bfr1REDDsvdpG4Vma6bSdwjtlZI=
 
 vm-browserify@^1.0.1:
   version "1.1.2"
@@ -9648,20 +9674,6 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
-vue2-animate@^2.1.0:
-  version "2.1.4"
-  resolved "https://registry.npm.taobao.org/vue2-animate/download/vue2-animate-2.1.4.tgz#7a241b8a0f839d97b9df63d4551fbe666354175e"
-  integrity sha1-eiQbig+DnZe532PUVR++ZmNUF14=
-
-vue2-viewer@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npm.taobao.org/vue2-viewer/download/vue2-viewer-1.0.3.tgz#110d594677c63f1594d55ab2f8891f8042b8ead5"
-  integrity sha1-EQ1ZRnfGPxWU1Vqy+IkfgEK46tU=
-  dependencies:
-    core-js "^3.4.3"
-    vue "^2.6.10"
-    vue2-animate "^2.1.0"
-
 vue@3.0.9:
   version "3.0.9"
   resolved "https://registry.nlark.com/vue/download/vue-3.0.9.tgz?cache=0&sync_timestamp=1620507792182&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue%2Fdownload%2Fvue-3.0.9.tgz#c68ffc0e4aa2b0f1905124a9037b6e352de469ad"
@@ -9670,11 +9682,6 @@ vue@3.0.9:
     "@vue/compiler-dom" "3.0.9"
     "@vue/runtime-dom" "3.0.9"
     "@vue/shared" "3.0.9"
-
-vue@^2.6.10:
-  version "2.6.12"
-  resolved "https://registry.nlark.com/vue/download/vue-2.6.12.tgz?cache=0&sync_timestamp=1620856192360&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue%2Fdownload%2Fvue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
-  integrity sha1-9evU+mvShpQD4pqJau1JBEVskSM=
 
 vuex@^4.0.0-rc.1:
   version "4.0.0-rc.1"
@@ -10161,3 +10168,10 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zrender@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.npm.taobao.org/zrender/download/zrender-5.1.0.tgz#b6a84c3aa7ccc6642ee0519901ca4c0835c4d85e"
+  integrity sha1-tqhMOqfMxmQu4FGZAcpMCDXE2F4=
+  dependencies:
+    tslib "2.0.3"

@@ -1,0 +1,62 @@
+.el-table td>.cell,
+.el-table th>.cell {
+  text-align: center !important;
+}
+
+.el-table td {
+  padding: 4px 0 !important;
+  background: rgb(13, 27, 38);
+}
+
+.el-table__body tr.hover-row>td {
+  background: rgb(13, 27, 38) !important;
+}
+
+.el-dialog {
+  background: #001E33 !important;
+}
+
+.el-dialog--center .el-dialog__footer {
+  text-align: right !important;
+}
+
+.el-dialog__headerbtn {
+  display: none;
+}
+
+.dialog-footer .el-button {
+  width: 100px;
+  height: 40px;
+  padding: 0;
+}
+
+.el-button--default {
+  color: #fff !important;
+  border: 1px solid #d6d6d6 !important;
+}
+
+.el-transfer__buttons {
+  padding: 0 20px !important;
+}
+.el-transfer__buttons .el-button {
+  background: rgb(13, 27, 38) !important;
+}
+.el-checkbox-group, .el-transfer-panel__body, .el-transfer-panel__header {
+  background: rgb(13, 41, 61) !important;
+  border: none !important;
+}
+.el-transfer-panel {
+  border: none !important;
+}
+.el-dialog__header {
+  display: none !important;
+}
+.el-checkbox__label {
+  color: #FFF !important;
+}
+.el-transfer-panel__filter {
+  margin: 0 !important;
+}
+.el-table .cell.el-tooltip {
+  color: #FFF !important;
+}

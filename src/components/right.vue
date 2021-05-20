@@ -1,6 +1,6 @@
 <template>
   <div class="right">
-    <el-button>换班次</el-button>
+    <el-button @click="classHandle">换班次</el-button>
     <el-button>工位登记</el-button>
     <el-button>变更状态</el-button>
     <div class="product-status"></div>
@@ -8,28 +8,38 @@
     <el-button>产出登记</el-button>
     <el-button>缺陷登记</el-button>
     <el-button class="call-response">呼叫</el-button>
+    <!-- 切换班次 -->
+    <chang-class ref="changClass"></chang-class>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, reactive } from 'vue';
+import { defineComponent, ref, Ref, onMounted, reactive } from "vue";
+import changClass from "./rightComponents/changClass.vue";
 
 export default defineComponent({
-  name: 'right',
+  name: "right",
   setup() {
-    onMounted(() => {
-      
-    })
+    // 切换班次组件
+    const changClass = ref();
+    // 切换班次弹出
+    const classHandle = (): void => {
+      changClass.value.classVisible = true;
+    };
+    onMounted(() => {});
     return {
-      
-    }
-  }
-})
+      classHandle,
+      changClass,
+    };
+  },
+  components: {
+    changClass,
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .right {
   height: 100%;
   display: flex;

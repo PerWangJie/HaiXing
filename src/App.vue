@@ -6,6 +6,8 @@
 
 <style lang="scss">
 
+@import "assets/css/element.css";
+
 * {
   box-sizing: border-box;
 }
@@ -24,11 +26,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-.el-table td > .cell,
-.el-table th > .cell {
-  text-align: center !important;
 }
 
 </style>

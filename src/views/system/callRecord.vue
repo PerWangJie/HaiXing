@@ -35,7 +35,7 @@ export default defineComponent({
     // 当前页码
     let currentSize: Ref<number> = ref(1)
     // 总页码
-    let totalSize: Ref<number> = ref(3)
+    let totalSize: Ref<number> = ref(10)
     provide('currentSize', currentSize)
     provide('totalSize', totalSize)
     // 切换状态

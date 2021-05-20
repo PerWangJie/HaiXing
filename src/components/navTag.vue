@@ -26,10 +26,10 @@ export default defineComponent({
   name: "nav",
   setup() {
     const navList: Array<any> = reactive([
-      {label: '产品加工', path: '/product'}, {label: 'SOP查看', path: 'sopCheck'},
-      {label: '今日任务', path: '/today'}, {label: '产出查询', path: '/yieldSearch' },
-      {label: '设备相关'}, {label: '呼叫记录', path: 'callRecord'},
-      {label: '操作日志'}, {label: '工位登记记录', path: 'stationRecord' }
+      {label: '工作台', path: '/product'}, 
+      {label: '产线叫料', path: '/productline'}, {label: '故障报修', path: '/faultRepair'},
+      {label: '工单管理', path: '/orderManagement/outOrder' }, {label: '我的设备', path: '/equipment'},
+      // {label: '操作日志'}, {label: '工位登记记录', path: '/stationRecord' }
     ])
     const router = useRouter()
     // 切换菜单
@@ -54,10 +54,11 @@ export default defineComponent({
   height: 100%;
   display: flex;
   flex-direction: column;
+  background: rgba(255, 255, 255, 0.05);
   .nav-title {
     width: 100%;
     height: 120px;
-    border-bottom: 1px solid #D6D6D6;
+    background: rgba(255, 255, 255, 0.1);
     img {
       margin-top: 35px;
     }
@@ -66,14 +67,18 @@ export default defineComponent({
     width: 100%;
     flex-grow: 1;
     overflow: auto;
-    box-shadow: 0px 10px 10px #ccc;
     .nav-menu-content {
       width: 100%;
       border-right: none;
+      background: rgb(13, 27, 38);
       .el-menu-item {
         height: 80px;
         line-height: 80px;
         font-size: 24px;
+        color: #fff !important;
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
         &.is-active {
           color: #fff;
           background: #537BFE;

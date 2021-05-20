@@ -7,6 +7,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/login.vue'),
   },
   {
+    path: '/sopCheck',
+    name: 'sopCheck',
+    component: () => import('@/views/system/sopCheck.vue'),
+  },
+  {
     path: '/',
     redirect: "/product",
     component: () => import('@/views/layout.vue'),
@@ -17,29 +22,78 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/system/product.vue'),
       },
       {
-        path: '/today',
-        name: 'today',
-        component: () => import('@/views/system/today.vue'),
+        path: '/productline',
+        name: 'productline',
+        component: () => import('@/views/system/productline.vue'),
       },
       {
-        path: '/yieldSearch',
-        name: 'yieldSearch',
-        component: () => import('@/views/system/yieldSearch.vue'),
+        path: '/productline/addLine',
+        name: 'addLine',
+        component: () => import('@/views/system/line/addLine.vue'),
       },
       {
-        path: '/callRecord',
-        name: 'callRecord',
-        component: () => import('@/views/system/callRecord.vue'),
+        path: '/orderManagement',
+        name: 'orderManagement',
+        component: () => import('@/views/system/orderManagement.vue'),
+        children: [
+          {
+            path: '/orderManagement/onOrder',
+            name: 'onOrder',
+            component: () => import('@/views/system/order/onOrder.vue'),
+          },
+          {
+            path: '/orderManagement/outOrder',
+            name: 'outOrder',
+            component: () => import('@/views/system/order/outOrder.vue'),
+          }
+        ]
       },
       {
-        path: '/stationRecord',
-        name: 'stationRecord',
-        component: () => import('@/views/system/stationRecord.vue'),
+        path: '/orderManagement/addOrder',
+        name: 'addOrder',
+        component: () => import('@/views/system/order/addOrder.vue'),
       },
       {
-        path: '/sopCheck',
-        name: 'sopCheck',
-        component: () => import('@/views/system/sopCheck.vue'),
+        path: '/faultRepair/addFault',
+        name: 'addFault',
+        component: () => import('@/views/system/fault/addFault.vue'),
+      },
+      {
+        path: '/faultRepair',
+        name: 'faultRepair',
+        component: () => import('@/views/system/faultRepair.vue'),
+      },
+      {
+        path: '/equipment',
+        name: 'equipment',
+        component: () => import('@/views/system/equipment.vue'),
+      },
+      {
+        path: '/equipment/addEquipment',
+        name: 'addEquipment',
+        component: () => import('@/views/system/equipment/addEquipment.vue'),
+      },
+      {
+        path: '/classCheck',
+        name: 'classCheck',
+        component: () => import('@/views/system/classCheck.vue'),
+        children: [
+          {
+            path: '/classCheck/openClass',
+            name: 'openClass',
+            component: () => import('@/views/system/classes/openClass.vue'),
+          },
+          {
+            path: '/classCheck/leaveClass',
+            name: 'leaveClass',
+            component: () => import('@/views/system/classes/leaveClass.vue'),
+          },
+          {
+            path: '/classCheck/laidOff',
+            name: 'laidOff',
+            component: () => import('@/views/system/classes/laidOff.vue'),
+          }
+        ]
       }
     ]
   },

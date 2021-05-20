@@ -36,6 +36,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   flex-direction: row;
+  background: #000F1A;
   .main-content {
     width: 1720px;
     height: 100%;
@@ -44,6 +45,7 @@ export default defineComponent({
     .content {
       width: 100%;
       flex: 1;
+      overflow: auto;
     }
   }
 }
