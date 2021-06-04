@@ -38,14 +38,14 @@ export default defineComponent({
   flex-direction: row;
   background: #000F1A;
   .main-content {
-    width: 1720px;
+    width: calc(100% - 200px);
     height: 100%;
     display: flex;
     flex-direction: column;
     .content {
       width: 100%;
-      flex: 1;
-      overflow: auto;
+      height: calc(100% - 120px);
+      // flex: 1;
     }
   }
 }

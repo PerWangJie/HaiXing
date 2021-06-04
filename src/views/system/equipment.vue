@@ -2,7 +2,9 @@
   <div class="equipment">
     <div class="equipment-information">
       <div class="equipment-new">
-        <el-button type="primary" @click="addEquipmentHandle">添加设备</el-button>
+        <el-button type="primary" @click="addEquipmentHandle"
+          >添加加工单元</el-button
+        >
         <pagination
           :currentSize="currentSize"
           :totalSize="totalSize"
@@ -23,8 +25,13 @@
           </template>
           <el-table-column fixed="right" label="操作" width="120">
             <template #default="scope">
-              <el-button type="text" size="small">编辑</el-button>
-              <el-button type="text" size="small">删除</el-button>
+              <!-- <el-button type="text" size="small">编辑</el-button> -->
+              <el-button
+                type="text"
+                size="small"
+                @click="deleteUnitHandle(scope.row)"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -45,6 +52,9 @@ import {
 } from "vue";
 import { useRouter } from 'vue-router'
 import pagination from "@/components/pagination.vue";
+import { UnitService } from "@/api/unit"
+import { equipmentService } from "@/api/equipment"
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   name: "equipment",
@@ -58,27 +68,12 @@ export default defineComponent({
     provide("totalSize", totalSize);
     // 搜索数据
     let data = reactive({
-      tableData: [
-        {
-          Number: 1,
-          Type: 1,
-          ItemName: 1,
-          process: 1,
-        },
-        {
-          Number: 1,
-          Type: 1,
-          ItemName: 1,
-          process: 1,
-        },
-      ],
+      tableData: [],
     });
     // 表格数据
     const colConfigs: Array<any> = reactive([
-      { prop: "Number", label: "设备产线标志" },
-      { prop: "Type", label: "设备编号" },
-      { prop: "ItemName", label: "设备名称" },
-      { prop: "process", label: "备注说明" }
+      { prop: "SCXBH", label: "加工单元编号" },
+      { prop: "SCXMC", label: "加工单元名称" }
     ]);
     // 新增叫料单
     const addEquipmentHandle = () => {
@@ -88,13 +83,44 @@ export default defineComponent({
         }
       )
     }
-    onMounted(() => {});
+    // 获取加工单元列表
+    const getList = async (pageSize: 10, pageIndex: 1) => {
+      const UnitListParams = {
+        method: 'GKJ_GetQBJGDY',
+        GSH: localStorage.getItem("gsh"),
+        pagesize: pageSize,
+        pagesindex: pageIndex
+      }
+      const res = await UnitService.getUnitList(UnitListParams)
+      data.tableData = res.data.list
+      data.tableData = res.data.list.slice((pageIndex -1) * pageSize, pageSize * pageIndex)
+      totalSize.value = Math.ceil(res.data.count/pageSize)
+    }
+    // 删除加工单元
+    const deleteUnitHandle = async (row: any) => {
+      const deleteUnitParams = {
+        method: 'GKJ_HXDELETESBXX',
+        GSH: localStorage.getItem("gsh"),
+        JGDYBH: row.SCXBH,
+        CJR: localStorage.getItem("userid")
+      }
+      const res = await equipmentService.deleteUnit(deleteUnitParams)
+      if (res.code == 1000) {
+        ElMessage.success('删除成功')
+        getList(10, 1)
+      }
+    }
+    onMounted(() => {
+      getList(10, 1)
+    });
     return {
       ...toRefs(data),
       totalSize,
       currentSize,
       colConfigs,
-      addEquipmentHandle
+      addEquipmentHandle,
+      getList,
+      deleteUnitHandle
     };
   },
   components: {

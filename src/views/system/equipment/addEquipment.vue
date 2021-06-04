@@ -1,27 +1,24 @@
 <template>
   <div class="addEquipment">
-    <p class="title">新增叫料单</p>
-    <el-form
-      :model="EquipmentForm"
-      ref="equipmentForm"
-      label-width="150px"
-      label-position="left"
-    >
-      <el-form-item label="产线标志：" prop="Line">
-        <el-input v-model="EquipmentForm.Line"></el-input>
+    <p class="title">新增加工单元</p>
+    <el-form :model="EquipmentForm" ref="equipmentForm" label-position="left">
+      <el-form-item label="加工单元编号：" prop="Line">
+        <el-select v-model="EquipmentForm.JGDYBH" filterable placeholder="请选择" @change="equipmentChange">
+          <el-option
+            v-for="item in unitList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="设备编号：" prop="LineName">
-        <el-input v-model="EquipmentForm.LineName"></el-input>
-      </el-form-item>
-      <el-form-item label="设备名称：" prop="Spec">
-        <el-input v-model="EquipmentForm.Spec"></el-input>
-      </el-form-item>
-      <el-form-item label="备注说明：" prop="People">
-        <el-input v-model="EquipmentForm.People" type="textarea"></el-input>
+      <el-form-item label="名称：" prop="Name">
+        <el-input v-model="EquipmentForm.Name" :disabled="true"></el-input>
       </el-form-item>
     </el-form>
     <div class="button-group">
-      <el-button type="primary">确认</el-button>
+      <el-button type="primary" @click="unitAffirm">确认</el-button>
       <el-button class="shadow" @click="exitHandle">取消</el-button>
     </div>
   </div>
@@ -39,6 +36,8 @@ import {
   unref,
   toRefs,
 } from "vue";
+import { equipmentService } from "@/api/equipment";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   name: "addEquipment",
@@ -47,11 +46,10 @@ export default defineComponent({
     // 搜索数据
     let data = reactive({
       EquipmentForm: {
-        Line: "",
-        LineName: "",
-        Spec: "",
-        People: "",
+        JGDYBH: "",
+        Name: "",
       },
+      unitList: []
     });
     // 取消
     const exitHandle = () => {
@@ -59,11 +57,54 @@ export default defineComponent({
       const form: any = unref(equipmentForm);
       form.resetFields();
     };
-    onMounted(() => {});
+    // 获取加工单元列表
+    const getList = async () => {
+      const UnitCodeParams = {
+        method: "GKJ_GetJGDYBBHDQ",
+        GSH: localStorage.getItem("gsh"),
+        RYXX: localStorage.getItem("userid"),
+      };
+      const res = await equipmentService.getUnitCode(UnitCodeParams);
+      data.unitList = res.data.list.map((item: any, index: number) => {
+        let obj = {
+          value: item.SCXBH,
+          label: item.SCXMC
+        }
+        return obj
+      })
+    }
+    // 切换加工单元
+    const equipmentChange = (value: any) => {
+      data.unitList.map((item: any) => {
+        if(value = item.value) {
+          data.EquipmentForm.Name = item.label
+        }
+      })
+    }
+    // 新增加工单元
+    const unitAffirm = async () => {
+      const addUnitParams = {
+        method: 'GKJ_HXUPDATESBXX',
+        GSH: localStorage.getItem('gsh'),
+        JGDYBH: data.EquipmentForm.JGDYBH,
+        CJR: localStorage.getItem('userid'),
+      }
+      const res = await equipmentService.addUnit(addUnitParams)
+      if (res.code ==1000) {
+        ElMessage.success('新增成功')
+        router.go(-1)
+      }
+    }
+    onMounted(() => {
+      getList();
+    });
     return {
       ...toRefs(data),
       equipmentForm,
       exitHandle,
+      getList,
+      equipmentChange,
+      unitAffirm
     };
   },
 });
@@ -86,6 +127,7 @@ export default defineComponent({
     .el-form-item__label {
       text-align: right;
       color: #fff;
+      width: 120px;
     }
     .el-form-item__content {
       text-align: left;
@@ -105,7 +147,7 @@ export default defineComponent({
     margin-top: 20px;
     .el-button {
       position: relative;
-      left: 150px;
+      left: 120px;
       &.shadow {
         background: rgba(255, 255, 255, 0.05);
       }

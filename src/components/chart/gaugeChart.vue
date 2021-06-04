@@ -4,21 +4,36 @@
   </div>
 </template>
 <script>
-import { defineComponent, Ref, ref, onMounted, onCreated } from "vue";
+import {
+  defineComponent,
+  Ref,
+  ref,
+  onMounted,
+  onCreated,
+  getCurrentInstance,
+  reactive,
+  toRefs,
+} from "vue";
 import * as echarts from "echarts";
 export default {
-  setup() {
+  props: {
+    OEE: {
+      type: Number,
+      default: 60,
+    },
+  },
+  setup(props, ctxs) {
     let resize = () => {
       let myChart = echarts.init(document.getElementById("gauge"));
-      myChart.resize()
+      myChart.resize();
     };
-    let echartInit = () => {
+    let echartInit = async () => {
       let myChart = echarts.init(document.getElementById("gauge"));
       // 指定图表的配置项和数据
       let option = {
         grid: {
-          top: 'top',
-          bottom: '20%'
+          top: "top",
+          bottom: "20%",
         },
         series: [
           {
@@ -39,7 +54,9 @@ export default {
               shadowOffsetY: 2,
             },
             axisLine: {
+              show: true,
               lineStyle: {
+                color: [[1, "rgb(25, 39, 49)"]],
                 width: 40,
               },
             },
@@ -61,23 +78,25 @@ export default {
             detail: {
               valueAnimation: true,
               fontSize: 24,
-              color: '#00EDFF',
+              color: "#00EDFF",
               offsetCenter: [0, "60%"],
             },
             data: [
               {
-                value: '50',
+                value: props.OEE,
               },
             ],
           },
         ],
       };
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
+      myChart.setOption(option)
     };
     //onMounted
     onMounted(() => {
-      echartInit();
+      setTimeout(() => {
+        echartInit();
+      }, 200);
       window.addEventListener("resize", () => {
         echarts.init(document.getElementById("gauge")).resize();
       });
@@ -85,7 +104,7 @@ export default {
     //return
     return {
       echartInit,
-      resize
+      resize,
     };
   },
 };

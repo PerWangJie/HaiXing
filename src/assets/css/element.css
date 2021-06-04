@@ -8,7 +8,7 @@
   background: rgb(13, 27, 38);
 }
 
-.el-table__body tr.hover-row>td {
+.el-table__body tr.hover-row>td, .el-table--enable-row-hover .el-table__body tr:hover>td {
   background: rgb(13, 27, 38) !important;
 }
 
@@ -28,6 +28,14 @@
   width: 100px;
   height: 40px;
   padding: 0;
+}
+
+.el-button--primary {
+  background: #237AE4 !important;
+}
+
+.el-input__inner {
+  height: 30px !important;
 }
 
 .el-button--default {
@@ -57,6 +65,36 @@
 .el-transfer-panel__filter {
   margin: 0 !important;
 }
-.el-table .cell.el-tooltip {
+.el-table .cell.el-tooltip, .el-table .cell {
   color: #FFF !important;
+}
+
+.el-tabs__active-bar {
+  background: none !important;
+}
+.el-tabs__nav-wrap::after {
+  width: 0 !important;
+}
+.el-tabs__item {
+  width: 120px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  color: #FFF !important;
+  text-align: center !important;
+}
+.el-tabs__item.is-active {
+  background: linear-gradient(
+    0deg,
+    #537bfe 0%,
+    rgba(83, 123, 254, 0) 100%
+  ) !important;
+  color: #fff !important;
+}
+
+.el-input__prefix, .el-input__suffix {
+  top: -4px !important;
+}
+
+.el-input.is-disabled .el-input__inner {
+  color: #606266 !important;
 }

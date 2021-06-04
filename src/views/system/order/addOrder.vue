@@ -1,10 +1,10 @@
 <template>
   <div class="addLine">
-    <p class="title">新增叫料单</p>
+    <p class="title">新增工单</p>
     <el-form
       :model="LineForm"
       ref="lineForm"
-      label-width="150px"
+      label-width="120px"
       label-position="left"
     >
       <el-form-item label="加工单元：" prop="Line">
@@ -152,7 +152,7 @@ export default defineComponent({
     margin-top: 20px;
     .el-button {
       position: relative;
-      left: 150px;
+      left: 120px;
       &.shadow {
         background: rgba(255, 255, 255, 0.05);
       }

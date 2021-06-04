@@ -112,13 +112,6 @@ export default defineComponent({
 .outOrder {
   width: 100%;
   height: 100%;
-  & /deep/ .el-dialog {
-    width: 620px !important;
-    hr {
-      color: #d6d6d6;
-      margin: 0 0 20px 0;
-    }
-  }
   .button-group {
     width: 100%;
     height: 80px;

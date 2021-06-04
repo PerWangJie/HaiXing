@@ -90,6 +90,7 @@ import {
 } from "vue";
 import { useRouter } from 'vue-router'
 import pagination from "@/components/pagination.vue";
+import { OrderService } from "@/api/order";
 
 export default defineComponent({
   name: "productline",
@@ -110,44 +111,31 @@ export default defineComponent({
         ItemNo: "",
         Time: "",
       },
-      tableData: [
-        {
-          Number: 1,
-          Type: 1,
-          ItemName: 1,
-          process: 1,
-          Spec: "22",
-          Batch: "123",
-          Plan: "111",
-        },
-        {
-          Number: 1,
-          Type: 1,
-          ItemName: 1,
-          process: 1,
-          Spec: "22",
-          Batch: "123",
-          Plan: "111",
-        },
-      ],
+      tableData: [],
     });
     // 表格数据
     const colConfigs: Array<any> = reactive([
-      { prop: "Number", label: "任务单号" },
-      { prop: "Type", label: "任务类型" },
-      { prop: "ItemName", label: "物品名称" },
-      { prop: "process", label: "工序" },
-      { prop: "Spec", label: "规格" },
-      { prop: "Batch", label: "批号" },
-      { prop: "Plan", label: "进度" },
+      { prop: "swh", label: "叫料单号" },
+      { prop: "XQCX", label: "需求产线" },
+      { prop: "CXMC", label: "产线名称" },
+      { prop: "WPH", label: "物品号" },
+      { prop: "WPMC", label: "物品名称" },
+      { prop: "GGMS", label: "规格描述" },
+      { prop: "DW", label: "单位" },
+      { prop: "XQSL", label: "需求数量" },
+      { prop: "JJDJ", label: "紧急等级" },
+      { prop: "GLGDH", label: "关联工单号" },
+      { prop: "BZ", label: "备注" },
+      { prop: "JLSJ", label: "叫料时间" },
+      { prop: "jlr", label: "叫料人" },
     ]);
     // const change = (e: any) => {
     //   (this as any).$forceUpdate();
     // };
     // 搜索数据
     const searchData = () => {
-      
-    };
+      getList(10, 1)
+    }
     // 重置表单
     const resetForm = () => {
       const form: any = unref(ruleFormsss);
@@ -161,7 +149,29 @@ export default defineComponent({
         }
       )
     }
-    onMounted(() => {});
+    const getList = async (pageSize: 10, pageIndex: 1) => {
+      let day1 = '1990-04-01'
+      let day2 = '9999-04-30'
+      let d1 = new Date(data.ruleForm.Time[0])
+      let d2 = new Date(data.ruleForm.Time[1])
+      const OrdersParams = {
+        method: 'Agv_CXJL_HXGetSCLLYXT',
+        GSH: localStorage.getItem("gsh"),
+        cxbm: data.ruleForm.line,
+        gdh: data.ruleForm.order,
+        wph: data.ruleForm.ItemNo,
+        kssj: data.ruleForm.Time.length == 0 ? day1 : d1.getFullYear() + '-' + (d1.getMonth() + 1) + '-' + d1.getDate(),
+        jssj: data.ruleForm.Time.length == 0 ? day2 : d2.getFullYear() + '-' + (d2.getMonth() + 1) + '-' + d2.getDate(),
+        pageSize: pageSize,
+        pageIndex: pageIndex
+      }
+      const res = await OrderService.getOrderList(OrdersParams);
+      data.tableData = res.data.list.slice((pageIndex -1) * pageSize, pageSize * pageIndex)
+      totalSize.value = Math.ceil(res.data.count/pageSize)
+    }
+    onMounted(() => {
+      getList(10, 1)
+    });
     return {
       ...toRefs(data),
       totalSize,
@@ -170,7 +180,8 @@ export default defineComponent({
       searchData,
       ruleFormsss,
       resetForm,
-      addLineHandle
+      addLineHandle,
+      getList
     };
   },
   components: {

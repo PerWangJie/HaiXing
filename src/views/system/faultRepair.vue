@@ -9,18 +9,18 @@
       >
         <el-row>
           <el-col :span="6">
-            <el-form-item label="故障编号：" prop="faultCode">
-              <el-input v-model="ruleForm.faultCode"></el-input>
+            <el-form-item label="故障编号：" prop="GZBH">
+              <el-input v-model="ruleForm.GZBH"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="设备编号：" prop="Code">
-              <el-input v-model="ruleForm.Code"></el-input>
+            <el-form-item label="设备编号：" prop="SBBH">
+              <el-input v-model="ruleForm.SBBH"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="报修人：" prop="People">
-              <el-input v-model="ruleForm.People"></el-input>
+            <el-form-item label="报修人：" prop="BXR">
+              <el-input v-model="ruleForm.BXR"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -75,6 +75,7 @@ import {
 } from "vue";
 import { useRouter } from 'vue-router'
 import pagination from "@/components/pagination.vue";
+import { FaultService } from "@/api/fault";
 
 export default defineComponent({
   name: "faultRepair",
@@ -90,44 +91,27 @@ export default defineComponent({
     // 搜索数据
     let data = reactive({
       ruleForm: {
-        faultCode: "",
-        Code: "",
-        People: ""
+        GZBH: "",
+        SBBH: "",
+        BXR: ""
       },
       tableData: [
-        {
-          Number: 1,
-          Type: 1,
-          ItemName: 1,
-          process: 1,
-          Spec: "22",
-          Batch: "123",
-          Plan: "111",
-        },
-        {
-          Number: 1,
-          Type: 1,
-          ItemName: 1,
-          process: 1,
-          Spec: "22",
-          Batch: "123",
-          Plan: "111",
-        },
+        
       ],
     });
     // 表格数据
     const colConfigs: Array<any> = reactive([
-      { prop: "Number", label: "设备编号" },
-      { prop: "Type", label: "设备名称" },
-      { prop: "ItemName", label: "规格型号" },
-      { prop: "process", label: "安装地点" },
-      { prop: "Spec", label: "故障编码" },
-      { prop: "Batch", label: "故障名称" },
-      { prop: "Plan", label: "计划工时（分钟）" },
-      { prop: "Level", label: "紧急程度" },
-      { prop: "People", label: "报修人" },
-      { prop: "Time", label: "报修时间" },
-      { prop: "Time2", label: "解除时间" },
+      { prop: "SBBH", label: "设备编号" },
+      { prop: "SBMC", label: "设备名称" },
+      { prop: "XH", label: "规格型号" },
+      { prop: "SBSZWZMC", label: "安装地点" },
+      { prop: "GZBM", label: "故障编码" },
+      { prop: "GZMC", label: "故障名称" },
+      { prop: "XDWCGS", label: "计划工时（分钟）" },
+      { prop: "JJCD", label: "紧急程度" },
+      { prop: "CJR", label: "报修人" },
+      { prop: "CJSJ", label: "报修时间" },
+      { prop: "QRSJ", label: "解除时间" },
     ]);
     // const change = (e: any) => {
     //   (this as any).$forceUpdate();
@@ -149,7 +133,24 @@ export default defineComponent({
         }
       )
     }
-    onMounted(() => {});
+    // 获取故障报修列表
+    const getList = async (pageSize: 10, pageIndex: 1) => {
+      const OrdersParams = {
+        method: 'GKJ_GETGZYXT',
+        GZBH: data.ruleForm.GZBH,
+        SBBH: data.ruleForm.SBBH,
+        BXR: data.ruleForm.BXR,
+        GSH: localStorage.getItem("gsh"),
+        pageSize: pageSize,
+        pageIndex: pageIndex
+      }
+      const res = await FaultService.getFault(OrdersParams);
+      data.tableData = res.data.list.slice((pageIndex -1) * pageSize, pageSize * pageIndex)
+      totalSize.value = Math.ceil(res.data.count/pageSize)
+    }
+    onMounted(() => {
+      getList(10, 1)
+    });
     return {
       ...toRefs(data),
       totalSize,
@@ -158,7 +159,8 @@ export default defineComponent({
       searchData,
       ruleFormsss,
       resetForm,
-      addLineHandle
+      addLineHandle,
+      getList
     };
   },
   components: {

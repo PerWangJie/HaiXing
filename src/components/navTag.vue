@@ -2,50 +2,58 @@
 <template>
   <div class="nav">
     <div class="nav-title">
-      <img src="@/assets/img/title.png" alt="">
+      <img src="@/assets/img/title.png" alt="" />
     </div>
     <div class="nav-menu">
-      <el-menu
-        default-active="1"
-        class="nav-menu-content"
-        @select="menuSelect"
-      >
-        <el-menu-item v-for="(item, index) in navList" :key="index" :index="index + 1">
-          <template #title>{{item.label}}</template>
+      <el-menu default-active="1" class="nav-menu-content" @select="menuSelect">
+        <el-menu-item
+          v-for="(item, index) in navList"
+          :key="index"
+          :index="index + 1"
+        >
+          <template #title>{{ item.label }}</template>
         </el-menu-item>
       </el-menu>
     </div>
+    <div class="call" @click="callHandle">呼叫</div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, Ref, reactive } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "nav",
   setup() {
     const navList: Array<any> = reactive([
-      {label: '工作台', path: '/product'}, 
-      {label: '产线叫料', path: '/productline'}, {label: '故障报修', path: '/faultRepair'},
-      {label: '工单管理', path: '/orderManagement/outOrder' }, {label: '我的设备', path: '/equipment'},
-      // {label: '操作日志'}, {label: '工位登记记录', path: '/stationRecord' }
-    ])
-    const router = useRouter()
+      { label: "工作台", path: "/product" },
+      { label: "产线叫料", path: "/productline" },
+      { label: "排班管理", path: "/classDefinition" },
+      { label: "故障报修", path: "/faultRepair" },
+      { label: "工单管理", path: "/orderManagement/outOrder" },
+      { label: "加工单元", path: "/equipment" },
+      { label: "我的生产小组", path: "/productGroup" },
+    ]);
+    const router = useRouter();
     // 切换菜单
     const menuSelect = (index: number) => {
-      router.push(
-        {
-          path: navList[index - 1].path
-        }
-      )
+      router.push({
+        path: navList[index - 1].path,
+      });
+    };
+    const callHandle = () => {
+      router.push({
+        path: '/callRecord',
+      });
     }
     return {
       navList,
-      menuSelect
-    }
+      menuSelect,
+      callHandle
+    };
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -81,10 +89,22 @@ export default defineComponent({
         }
         &.is-active {
           color: #fff;
-          background: #537BFE;
+          background: #237ae4;
         }
       }
     }
+  }
+  .call {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(90deg, #456cf7 0%, #45adf7 100%);
+    border-radius: 50%;
+    position: relative;
+    left: 60px;
+    bottom: 20px;
+    font-size: 22px;
+    color: #FFF;
+    line-height: 80px;
   }
 }
 </style>

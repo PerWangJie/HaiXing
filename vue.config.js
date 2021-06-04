@@ -41,5 +41,14 @@ module.exports = {
           name: `[name].[hash:8].[ext]`,
         })
       );
+  },
+  devServer: {
+    open: true,
+    proxy: {
+      "/api": {
+        target: "http://122.51.182.66:3019",
+        changeOrigin: true,
+      }
+    }
   }
 }

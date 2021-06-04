@@ -70,18 +70,26 @@ export default defineComponent({
     // 回到首页
     const firstHandle = () => {
       currentSize.value = 1;
+      _this.parent.ctx.getList(10, 1);
     };
     // 回到上一页
     const prevHandle = () => {
       currentSize.value--;
+      _this.parent.ctx.getList(10, currentSize.value);
     };
     // 回到下一页
     const nextHandle = () => {
-      currentSize.value++;
+      if (totalSize.value == 1) {
+        currentSize.value = currentSize.value;
+      } else {
+        currentSize.value++;
+        _this.parent.ctx.getList(10, currentSize.value);
+      }
     };
     // 回到末页
     const lastHandle = () => {
       currentSize.value = totalSize.value;
+      _this.parent.ctx.getList(10, totalSize.value);
     };
     watch(currentSize, (newVal: Number, oldVal: Number) => {
       if (newVal === 1) {
@@ -109,7 +117,7 @@ export default defineComponent({
       prevHandle,
       nextHandle,
       lastHandle,
-    }
+    };
   },
 });
 </script>
@@ -130,22 +138,26 @@ export default defineComponent({
     border: none;
     &.first {
       background: url("../assets/img/first.png") no-repeat;
-      background-position: 5px 6px;
+      background-position: 10px 6px;
+      background-size: 50% 50%;
       background-color: rgb(25, 39, 49);
     }
     &.prev {
       background: url("../assets/img/prev.png") no-repeat;
-      background-position: 5px 6px;
+      background-position: 10px 6px;
+      background-size: 50% 50%;
       background-color: rgb(25, 39, 49);
     }
     &.next {
       background: url("../assets/img/next.png") no-repeat;
-      background-position: 5px 6px;
+      background-position: 10px 6px;
+      background-size: 50% 50%;
       background-color: rgb(25, 39, 49);
     }
     &.last {
       background: url("../assets/img/last.png") no-repeat;
-      background-position: 5px 6px;
+      background-position: 10px 6px;
+      background-size: 50% 50%;
       background-color: rgb(25, 39, 49);
     }
   }
@@ -153,7 +165,7 @@ export default defineComponent({
     width: 120px;
     height: 40px;
     line-height: 40px;
-    color: #FFF;
+    color: #fff;
     background: rgb(25, 39, 49);
     font-size: 16px;
     font-weight: bold;
@@ -180,7 +192,7 @@ export default defineComponent({
       height: 40px;
       background: rgb(25, 39, 49);
       line-height: 40px;
-      color: #FFF;
+      color: #fff;
       font-size: 16px;
       border-radius: 4px;
       font-weight: bold;

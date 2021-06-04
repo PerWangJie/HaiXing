@@ -31,7 +31,8 @@ export default {
             "Video Ad",
             "Search Engine",
           ],
-          right: "top",
+          right: "20",
+          itemGap: 20,
           textStyle: {
             color: '#FFF'
           }

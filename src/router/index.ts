@@ -2,6 +2,10 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: "/",
+    redirect: "/login",
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login.vue'),
@@ -12,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/system/sopCheck.vue'),
   },
   {
-    path: '/',
+    path: '/product',
     redirect: "/product",
     component: () => import('@/views/layout.vue'),
     children: [
@@ -72,6 +76,41 @@ const routes: Array<RouteRecordRaw> = [
         path: '/equipment/addEquipment',
         name: 'addEquipment',
         component: () => import('@/views/system/equipment/addEquipment.vue'),
+      },
+      {
+        path: '/productGroup',
+        name: 'productGroup',
+        component: () => import('@/views/system/productGroup.vue'),
+      },
+      {
+        path: '/productGroup/addGroup',
+        name: 'addGroup',
+        component: () => import('@/views/system/group/addGroup.vue'),
+      },
+      {
+        path: '/classDefinition',
+        name: 'classDefinition',
+        component: () => import('@/views/system/classDefinition.vue'),
+      },
+      {
+        path: '/classDefinition/addClass',
+        name: 'addClass',
+        component: () => import('@/views/system/class/addClass.vue'),
+      },
+      {
+        path: '/classDefinition/checkClass',
+        name: 'checkClass',
+        component: () => import('@/views/system/class/checkClass.vue'),
+      },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/system/order.vue'),
+      },
+      {
+        path: '/callRecord',
+        name: 'callRecord',
+        component: () => import('@/views/system/callRecord.vue'),
       },
       {
         path: '/classCheck',

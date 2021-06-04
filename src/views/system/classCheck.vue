@@ -6,7 +6,6 @@
         <el-tab-pane label="离岗登记" name="/classCheck/leaveClass"></el-tab-pane>
         <el-tab-pane label="下岗登记" name="/classCheck/laidOff"></el-tab-pane>
       </el-tabs>
-      <pagination :currentSize="currentSize" :totalSize="totalSize" ref="pagination"></pagination>
       <div class="classCheck-table">
         <router-view/>
       </div>
@@ -15,21 +14,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, reactive, provide } from "vue";
+import { defineComponent, ref, Ref, onMounted, onBeforeUnmount, reactive, provide } from "vue";
 import { useRouter } from 'vue-router'
+import { useStore } from "vuex";
 import pagination from '@/components/pagination.vue'
 
 export default defineComponent({
   name: "classCheck",
   setup() {
     const router = useRouter()
-    // 当前页码
-    let currentSize: Ref<number> = ref(1)
-    // 总页码
-    let totalSize: Ref<number> = ref(3)
+    const store = useStore();
+    // // 当前页码
+    // let currentSize: Ref<number> = ref(1)
+    // // 总页码
+    // let totalSize: Ref<number> = ref(2)
 
-    provide('currentSize', currentSize)
-    provide('totalSize', totalSize)
+    // provide('currentSize', currentSize)
+    // provide('totalSize', totalSize)
     // 选中的状态
     let Status: Ref<string> = ref(`/classCheck/openClass`);
     // 切换状态
@@ -39,14 +40,17 @@ export default defineComponent({
           path: tab.props.name
         }
       )
-      currentSize.value = 1
+      // currentSize.value = 1
     }
     onMounted(() => {});
+    onBeforeUnmount(() => {
+      localStorage.setItem("BCBM", "")
+    })
     return {
       StatusClick,
       Status,
-      currentSize,
-      totalSize
+      // currentSize,
+      // totalSize
     };
   },
   components: {
@@ -73,26 +77,6 @@ $blue: "~@/assets/img/button-2.png";
     position: relative;
     display: flex;
     flex-direction: column;
-    & /deep/ .el-tabs__active-bar {
-      background: none;
-    }
-    & /deep/ .el-tabs__nav-wrap::after {
-      width: 0;
-    }
-    & /deep/ .el-tabs__item {
-      width: 120px;
-      height: 40px;
-      padding: 0;
-      color: #FFF;
-      &.is-active {
-        background: linear-gradient(
-          0deg,
-          #537bfe 0%,
-          rgba(83, 123, 254, 0) 100%
-        );
-        color: #fff;
-      }
-    }
     .classCheck-table {
       height: 100%;
       border-radius: 8px;

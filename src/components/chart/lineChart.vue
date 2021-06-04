@@ -4,104 +4,107 @@
   </div>
 </template>
 <script>
-import { defineComponent, Ref, ref, onMounted, onCreated } from "vue";
+import { defineComponent, Ref, ref, onMounted, onCreated, toRefs } from "vue";
+import { ChartService } from "@/api/chart";
 import * as echarts from "echarts";
 export default {
   setup() {
-    let resize = () => {
+    let resize = async () => {
       let myChart = echarts.init(document.getElementById("line"));
       myChart.resize();
     };
-    let echartInit = () => {
-      console.log(111);
+    let echartInit = async () => {
+      const LineParams = {
+        method: 'APP_XSCL',
+        jgzxh: localStorage.getItem('jgdyh'),
+      }
+      const res = await ChartService.getLine(LineParams)
+      // 时间列表
+      let timeList = []
+      // 产量列表
+      let countList = []
+      timeList = res.data.list.map(item => {
+        return item.rq.substring(11,16)
+      })
+      countList = res.data.list.map(item => {
+        return item.xscl
+      })
       let myChart = echarts.init(document.getElementById("line"));
       // 指定图表的配置项和数据
-      let option = (option = {
-        color: ["#2B9DFF"],
-        grid: {
-          top: 30,
-          bottom: 30,
-          left: 40,
-          right: 40,
+
+      let option = {
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+          },
         },
-        xAxis: [
-          {
-            type: "category",
-            axisTick: {
-              alignWithLabel: true,
-            },
-            axisLabel: {
+        title: {
+          text: "小时产量图",
+          textStyle: {
+            color: "#FFF",
+          },
+          left: "center",
+        },
+        grid: {
+          top: "10%",
+          left: "2%",
+          right: "2%",
+          bottom: "3%",
+          containLabel: true,
+        },
+        xAxis: {
+          data: timeList,
+          axisLabel: {
+            textStyle: {
               color: "#FFF",
             },
-            axisLine: {
-              color: "#D6D6D6",
-            },
-            data: [
-              "2016-1",
-              "2016-2",
-              "2016-3",
-              "2016-4",
-              "2016-5",
-              "2016-6",
-              "2016-7",
-              "2016-8",
-              "2016-9",
-              "2016-10",
-              "2016-11",
-              "2016-12",
-            ],
           },
-        ],
-        yAxis: [
-          {
-            type: "value",
-            axisLabel: {
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
               color: "#FFF",
             },
-            splitLine: {
-              lineStyle: {
-                color: "#D6D6D6",
-                type: "dashed",
-              },
+          },
+        },
+        yAxis: {
+          axisLine: {
+            show: false,
+          },
+          axisTick: {
+            show: false,
+          },
+          axisLabel: {
+            textStyle: {
+              color: "#FFF",
             },
           },
-        ],
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: "dashed",
+              color: "#666",
+            },
+          },
+        },
         series: [
           {
-            name: "2016 降水量",
-            type: "line",
-            showSymbol: false,
-            smooth: true,
-            areaStyle: {
-              opacity: 0.8,
+            type: "bar",
+            barWidth: "30",
+            itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: "rgba(43, 157, 255, 1)",
-                },
-                {
-                  offset: 1,
-                  color: "rgba(43, 157, 255, 0)",
-                },
+                { offset: 0, color: "#83bff6" },
+                { offset: 1, color: "#188df0" },
               ]),
             },
-            data: [
-              3.9,
-              5.9,
-              11.1,
-              18.7,
-              48.3,
-              69.2,
-              231.6,
-              46.6,
-              55.4,
-              18.4,
-              10.3,
-              0.7,
-            ],
+            data: countList,
           },
         ],
-      });
+      };
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
     };
@@ -116,6 +119,7 @@ export default {
     return {
       echartInit,
       resize,
+      // ...toRefs(data),
     };
   },
 };
